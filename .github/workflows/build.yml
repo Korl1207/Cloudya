@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            qt-arch: gcc_64
+            generator: Unix Makefiles
+          - os: windows-2022
+            qt-arch: win64_msvc2022_64
+            generator: Visual Studio 17 2022
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@v6
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.3'
+          arch: ${{ matrix.qt-arch }}
+
+      - name: Configure
+        run: cmake -S . -B build -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release --parallel 2
