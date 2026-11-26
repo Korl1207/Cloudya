@@ -2,6 +2,7 @@
 
 #include <QByteArray>
 #include <QByteArrayView>
+#include <QMetaType>
 #include <QString>
 #include <QVector>
 #include <optional>
@@ -45,3 +46,5 @@ private:
 };
 
 } // namespace cloudya::network
+
+Q_DECLARE_METATYPE(cloudya::network::Frame)

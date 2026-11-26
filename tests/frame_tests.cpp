@@ -1,8 +1,10 @@
 #include "network/frame.h"
 #include "core/types.h"
+#include "core/contracts.h"
 
 #include <QTest>
 #include <QtEndian>
+#include <type_traits>
 
 using namespace cloudya::network;
 
@@ -30,6 +32,11 @@ void FrameTests::splitAndConcatenatedFrames() {
 }
 
 void FrameTests::boundariesAndInvalidInput() {
+    static_assert(std::is_abstract_v<cloudya::IndexStore>);
+    static_assert(std::is_abstract_v<cloudya::PeerTransport>);
+    static_assert(std::is_abstract_v<cloudya::SyncController>);
+    QVERIFY(QMetaType::fromType<cloudya::SyncStatus>().isValid());
+    QVERIFY(QMetaType::fromType<cloudya::network::Frame>().isValid());
     cloudya::FileVersion version;
     QCOMPARE(version.availability, cloudya::ContentAvailability::Missing);
     const QByteArray payload(kMaxFrameBody - 2, 'x');

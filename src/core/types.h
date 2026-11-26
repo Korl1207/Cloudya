@@ -3,6 +3,7 @@
 #include <QByteArray>
 #include <QHash>
 #include <QHostAddress>
+#include <QMetaType>
 #include <QSet>
 #include <QString>
 #include <QUuid>
@@ -58,3 +59,5 @@ struct SyncStatus {
 };
 
 } // namespace cloudya
+
+Q_DECLARE_METATYPE(cloudya::SyncStatus)
