@@ -14,7 +14,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-24.04
-            qt-arch: gcc_64
+            qt-arch: linux_gcc_64
             generator: Unix Makefiles
           - os: windows-2022
             qt-arch: win64_msvc2022_64
